@@ -9,3 +9,14 @@ This is a python project with two goals: (1) To provide the batch scripts and no
 navigate to this subdirectory, then run
 `conda create -f environment.yml`
 to install the required dependencies. You can use `conda activate dnt` to activate the resulting conda environment.
+
+
+### Using venv:
+
+if you're having trouble creating the conda environment, try creating a venv and installing the following packages through pip:
+
+  - "napari[all]"
+  - blender-tissue-cartography
+  - seaborn
+  - ipynb_path
+  - glasbey
