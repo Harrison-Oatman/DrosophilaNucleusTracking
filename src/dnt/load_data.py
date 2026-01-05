@@ -5,6 +5,8 @@ from tqdm import tqdm
 from h5py import File
 from typing import Optional
 
+
+
 def load_spots_data(spots_directory: Path, included: Optional[list] = None):
     spots_dfs = []
     metadatas = []
@@ -22,7 +24,6 @@ def load_spots_data(spots_directory: Path, included: Optional[list] = None):
         stems.append(spots_path.stem)
         spots_df["source"] = i
 
-
         """
         Get metadata
         """
@@ -31,6 +32,33 @@ def load_spots_data(spots_directory: Path, included: Optional[list] = None):
             m = f["metadata"]
             metadata.update(m.attrs)
         metadatas.append(metadata)
+
+        """
+        Calculate cycle and tracklet_id
+        """
+
+        spots_df["is_parent"] = spots_df["n_children"] > 1
+        spots_df["is_child"] = (spots_df["parent_id"] == -1) | spots_df["parent_id"].map(spots_df["is_parent"])
+
+        spots_df["tracklet_id"] = spots_df.index.to_series()
+
+        for frame, group in spots_df.groupby("frame"):
+            group = group[~group["is_child"]]
+            spots_df.loc[group.index, "tracklet_id"] = group["parent_id"].map(spots_df["tracklet_id"])
+
+        track_id_remap = {old_id: new_id for new_id, old_id in enumerate(spots_df["tracklet_id"].unique(), start=1)}
+        spots_df["tracklet_id"] = spots_df["tracklet_id"].map(track_id_remap)
+
+        cycle_starts = metadata["cycle_starts"]
+        print(cycle_starts, spots_df["frame"].min(), spots_df["frame"].max())
+
+        t_cycle = (
+            spots_df.groupby("tracklet_id")["frame"]
+            .min()
+            .apply(lambda time: np.argmax(cycle_starts > time))
+        )
+
+        spots_df["cycle"] = spots_df["tracklet_id"].map(t_cycle) + 9
 
         """
         Include dynamic time warp data

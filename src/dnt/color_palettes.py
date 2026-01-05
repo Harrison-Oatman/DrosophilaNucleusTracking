@@ -4,7 +4,9 @@ import matplotlib.pyplot as plt
 from types import SimpleNamespace
 
 nc_pal = {10: "#1d4e89", 11: "#00b2ca", 12: "#7dcfb6", 13: "#fbd1a2", 14: "#f79256"}
+ap_pal = ["#1f363d","#40798c","#70a9a1","#9ec1a3","#cfe0c3"]
 trk_pal = ["steelblue", "gold"]
+condition_pal = ["#606D5D", "#BC9CB0", "#EEE1B3"]
 four_color_pal = ["#44af69", "#f8333c", "#fcab10", "#2b9eb3"]
 
 def set_plot_style(update_rc = None):
@@ -33,6 +35,7 @@ palettes = SimpleNamespace(
     nc = nc_pal,
     trk = trk_pal,
     four_color = four_color_pal,
+    ap = ap_pal,
 )
 
 

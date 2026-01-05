@@ -1,4 +1,6 @@
 import pandas as pd
+from scipy.spatial.distance import cdist
+import numpy as np
 
 
 def find_stationary_timepoints(df: pd.DataFrame) -> tuple[list[int], list[float]]:
@@ -68,5 +70,14 @@ def generate_timepoint_df(df: pd.DataFrame) -> pd.DataFrame:
     tracklets = timepoint_df["tracklet_id"].values
     tracklet_id_mapper = dict(zip(tracklets, timepoint_df.index))
     timepoint_df["prev_id"] = timepoint_df["prev_tracklet_id"].map(tracklet_id_mapper)
+
+    for cycle, time in zip([10, 11, 12, 13, 14], times):
+        cycle_df = timepoint_df[timepoint_df["cycle"] == cycle]
+        points = cycle_df[["x", "y", "z"]].values
+        pairwise_distances = cdist(points, points)
+        np.fill_diagonal(pairwise_distances, 500)
+        first_neighbor_distances = pairwise_distances.min(axis=1)
+
+        timepoint_df.loc[cycle_df.index, "first_neighbor_distance"] = first_neighbor_distances
 
     return timepoint_df

@@ -456,6 +456,32 @@ wheels = [
 ]
 
 [[package]]
+name = "colorspacious"
+version = "1.1.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/75/e4/aa41ae14c5c061205715006c8834496d86ec7500f1edda5981f0f0190cc6/colorspacious-1.1.2.tar.gz", hash = "sha256:5e9072e8cdca889dac445c35c9362a22ccf758e97b00b79ff0d5a7ba3e11b618", size = 688573, upload-time = "2018-04-08T04:27:30.83Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ab/a1/318b9aeca7b9856410ededa4f52d6f82174d1a41e64bdd70d951e532675a/colorspacious-1.1.2-py2.py3-none-any.whl", hash = "sha256:c78befa603cea5dccb332464e7dd29e96469eebf6cd5133029153d1e69e3fd6f", size = 37735, upload-time = "2018-04-08T04:27:22.143Z" },
+]
+
+[[package]]
+name = "colorstamps"
+version = "0.1.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "colorspacious" },
+    { name = "matplotlib" },
+    { name = "numpy" },
+    { name = "scipy" },
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/3e/98/fd93b028e07048f67b86f3914ec85c9fa02fffe8fa82781d27b07e34c122/colorstamps-0.1.3-py3-none-any.whl", hash = "sha256:49693ffdc890859f0828e0beb394ac9541071504103221503476f802aedb345b", size = 12840, upload-time = "2024-08-16T09:51:02.455Z" },
+]
+
+[[package]]
 name = "comm"
 version = "0.2.3"
 source = { registry = "https://pypi.org/simple" }
@@ -629,6 +655,7 @@ source = { editable = "." }
 dependencies = [
     { name = "blender-tissue-cartography" },
     { name = "colorcet" },
+    { name = "colorstamps" },
     { name = "dtaidistance" },
     { name = "h5py" },
     { name = "napari", extra = ["pyqt5"] },
@@ -644,6 +671,7 @@ dependencies = [
 requires-dist = [
     { name = "blender-tissue-cartography", specifier = ">=0.0.5" },
     { name = "colorcet", specifier = ">=3.1.0" },
+    { name = "colorstamps", specifier = ">=0.1.3" },
     { name = "dtaidistance", specifier = ">=2.3.13" },
     { name = "h5py", specifier = ">=3.14.0" },
     { name = "napari", extras = ["pyqt5"], specifier = ">=0.6.5" },

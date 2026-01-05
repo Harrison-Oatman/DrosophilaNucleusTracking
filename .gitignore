@@ -4,3 +4,5 @@
 /figures/output/
 *.png
 /data
+/animations/output/
+/animations/processed/
