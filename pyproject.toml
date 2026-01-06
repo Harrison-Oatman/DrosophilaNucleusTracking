@@ -22,6 +22,12 @@ dependencies = [
     "tables>=3.10.2",
 ]
 
+[dependency-groups]
+dev = [
+  "pre-commit",
+  "nbstripout"
+]
+
 [build-system]
 requires = ["uv_build>=0.8.14"]
 build-backend = "uv_build"
